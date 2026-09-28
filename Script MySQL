@@ -54,17 +54,14 @@ CREATE TABLE inscricao (
 );
 
 INSERT INTO categoria (nome) VALUES
-('Tecnologia'),
-('Música'),
-('Negócios'),
-('Esportes');
+('Tecnologia'),('Música'),('Negócios'),('Esportes');
 
-INSERT INTO organizador (nome, email, telefone, descricao) VALUES
-('Marina Costa','marina@techbr.com.br','(47) 99111-1111','Eventos de tecnologia e inovação'),
+INSERT INTO organizador (nome,email,telefone,descricao) VALUES
+('Marina Costa','marina@techbr.com.br','(47) 99111-1111','Eventos de tecnologia'),
 ('Carlos Menezes','carlos@culturaeesporte.com','(47) 99222-2222','Eventos culturais e esportivos'),
-('Aline Rocha','aline@negociosvivos.com','(47) 99333-3333','Eventos de negócios e empreendedorismo');
+('Aline Rocha','aline@negociosvivos.com','(47) 99333-3333','Eventos de negócios');
 
-INSERT INTO participante (nome, email, telefone, cidade) VALUES
+INSERT INTO participante (nome,email,telefone,cidade) VALUES
 ('Lucas Silva','lucas.silva@email.com','(47) 98801-0001','Blumenau'),
 ('Ana Souza','ana.souza@email.com','(47) 98801-0002','Blumenau'),
 ('Pedro Rocha','pedro.rocha@email.com','(47) 98801-0003','Blumenau'),
@@ -74,15 +71,15 @@ INSERT INTO participante (nome, email, telefone, cidade) VALUES
 ('Thiago Nunes','thiago.nunes@email.com','(47) 98801-0007','Joinville'),
 ('Camila Ferreira','camila.ferreira@email.com','(48) 98801-0008','Florianópolis');
 
-INSERT INTO evento (titulo, descricao, data_inicio, data_fim, valor, id_categoria, id_organizador) VALUES
-('Workshop de Banco de Dados com MySQL','Oficina prática de modelagem e SQL','2026-10-10 09:00:00','2026-10-10 18:00:00',120,1,1),
-('Festival de Jazz na Praça','Show ao ar livre com bandas regionais','2026-08-15 19:00:00','2026-08-15 23:00:00',80,2,2),
-('Meetup de Startups','Networking entre fundadores e investidores','2026-09-05 14:00:00','2026-09-05 18:00:00',0,3,3),
-('Corrida Solidária 5K','Corrida de rua com renda revertida à caridade','2026-11-08 07:00:00','2026-11-08 11:00:00',50,4,2),
-('Hackathon EventPlus','Maratona de programação de 2 dias','2026-09-19 08:00:00','2026-09-20 20:00:00',30,1,1),
+INSERT INTO evento (titulo,descricao,data_inicio,data_fim,valor,id_categoria,id_organizador) VALUES
+('Workshop de Banco de Dados com MySQL','Oficina de SQL','2026-10-10 09:00:00','2026-10-10 18:00:00',120,1,1),
+('Festival de Jazz na Praça','Show ao ar livre','2026-08-15 19:00:00','2026-08-15 23:00:00',80,2,2),
+('Meetup de Startups','Networking entre empreendedores','2026-09-05 14:00:00','2026-09-05 18:00:00',0,3,3),
+('Corrida Solidária 5K','Corrida beneficente','2026-11-08 07:00:00','2026-11-08 11:00:00',50,4,2),
+('Hackathon EventPlus','Maratona de programação','2026-09-19 08:00:00','2026-09-20 20:00:00',30,1,1),
 ('Palestra de Empreendedorismo Digital','Palestra sobre negócios digitais','2026-12-01 19:00:00','2026-12-01 21:00:00',25,3,3);
 
-INSERT INTO inscricao (data_inscricao, presenca, id_participante, id_evento) VALUES
+INSERT INTO inscricao (data_inscricao,presenca,id_participante,id_evento) VALUES
 ('2026-09-01 10:00:00',FALSE,1,1),
 ('2026-09-02 11:30:00',FALSE,2,1),
 ('2026-09-03 09:15:00',FALSE,4,1),
@@ -110,83 +107,52 @@ ORDER BY data_inicio;
 
 SELECT e.titulo,c.nome AS categoria
 FROM evento e
-JOIN categoria c ON c.id_categoria=e.id_categoria
-ORDER BY c.nome,e.titulo;
+JOIN categoria c ON c.id_categoria=e.id_categoria;
 
 SELECT e.titulo,e.data_inicio,e.valor
 FROM evento e
 JOIN categoria c ON c.id_categoria=e.id_categoria
 WHERE c.nome='Tecnologia';
 
-SELECT e.titulo,o.nome AS organizador,o.email,o.telefone
+SELECT e.titulo,o.nome AS organizador,o.email
 FROM evento e
-JOIN organizador o ON o.id_organizador=e.id_organizador
-ORDER BY e.titulo;
+JOIN organizador o ON o.id_organizador=e.id_organizador;
 
 SELECT p.nome,p.email,p.cidade
 FROM inscricao i
 JOIN participante p ON p.id_participante=i.id_participante
 JOIN evento e ON e.id_evento=i.id_evento
-WHERE e.titulo='Hackathon EventPlus'
-ORDER BY p.nome;
+WHERE e.titulo='Hackathon EventPlus';
 
-SELECT i.id_inscricao,p.nome AS participante,e.titulo AS evento,
-       c.nome AS categoria,i.data_inscricao,
-       IF(i.presenca,'Presente','Ausente/Pendente') AS situacao
-FROM inscricao i
-JOIN participante p ON p.id_participante=i.id_participante
-JOIN evento e ON e.id_evento=i.id_evento
-JOIN categoria c ON c.id_categoria=e.id_categoria
-ORDER BY i.data_inscricao;
-
-SELECT e.titulo,p.nome AS participante,
-       IF(i.presenca,'Presente','Faltou') AS presenca
-FROM inscricao i
-JOIN participante p ON p.id_participante=i.id_participante
-JOIN evento e ON e.id_evento=i.id_evento
-WHERE e.data_fim<NOW()
-ORDER BY e.titulo,p.nome;
-
-SELECT e.titulo,COUNT(i.id_inscricao) AS total_inscricoes
+SELECT e.titulo,COUNT(i.id_inscricao) AS inscricoes
 FROM evento e
 LEFT JOIN inscricao i ON i.id_evento=e.id_evento
 GROUP BY e.id_evento,e.titulo
-ORDER BY total_inscricoes DESC;
+ORDER BY inscricoes DESC;
 
-SELECT e.titulo,e.valor,COUNT(i.id_inscricao) AS total_inscricoes,
+SELECT e.titulo,e.valor,
+       COUNT(i.id_inscricao) AS inscricoes,
        e.valor*COUNT(i.id_inscricao) AS arrecadacao
 FROM evento e
 LEFT JOIN inscricao i ON i.id_evento=e.id_evento
-GROUP BY e.id_evento,e.titulo,e.valor
-ORDER BY arrecadacao DESC;
+GROUP BY e.id_evento,e.titulo,e.valor;
 
-SELECT e.titulo,COUNT(*) AS inscritos,
-       SUM(i.presenca) AS presentes,
-       ROUND(SUM(i.presenca)/COUNT(*)*100,1) AS taxa_presenca
-FROM evento e
-JOIN inscricao i ON i.id_evento=e.id_evento
-WHERE e.data_fim<NOW()
-GROUP BY e.id_evento,e.titulo;
-
-SELECT cidade,COUNT(*) AS total_participantes
+SELECT cidade,COUNT(*) AS participantes
 FROM participante
-GROUP BY cidade
-ORDER BY total_participantes DESC,cidade;
+GROUP BY cidade;
 
 SELECT e.titulo,e.data_inicio
 FROM evento e
 LEFT JOIN inscricao i ON i.id_evento=e.id_evento
 WHERE i.id_inscricao IS NULL;
 
-SELECT p.nome,COUNT(i.id_evento) AS eventos_inscritos
+SELECT p.nome,COUNT(i.id_evento) AS eventos
 FROM participante p
 JOIN inscricao i ON i.id_participante=p.id_participante
 GROUP BY p.id_participante,p.nome
-HAVING COUNT(i.id_evento)>1
-ORDER BY eventos_inscritos DESC,p.nome;
+HAVING COUNT(i.id_evento)>1;
 
-SELECT o.nome AS organizador,COUNT(e.id_evento) AS total_eventos
+SELECT o.nome AS organizador,COUNT(e.id_evento) AS eventos
 FROM organizador o
 LEFT JOIN evento e ON e.id_organizador=o.id_organizador
-GROUP BY o.id_organizador,o.nome
-ORDER BY total_eventos DESC;
+GROUP BY o.id_organizador,o.nome;
