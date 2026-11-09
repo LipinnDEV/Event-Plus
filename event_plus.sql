@@ -1,5 +1,4 @@
 DROP DATABASE IF EXISTS eventplus;
-
 CREATE DATABASE eventplus
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
