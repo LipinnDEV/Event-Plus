@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎟️ Event-Plus
+# Event-Plus
 
 **Banco de dados relacional para gerenciamento de eventos, organizadores, participantes e inscrições.**
 
@@ -13,7 +13,7 @@
 
 ---
 
-## 📖 Sobre o Projeto
+## Sobre o Projeto
 
 O **Event-Plus** é um projeto acadêmico da disciplina de Banco de Dados que simula o back-end de um sistema de gerenciamento de eventos.
 
@@ -28,7 +28,7 @@ O objetivo foi aplicar, na prática, os conceitos de modelagem relacional, integ
 
 ---
 
-## 🗂️ Modelo de Dados
+## Modelo de Dados
 
 O banco é composto por **5 tabelas**:
 
@@ -59,7 +59,7 @@ erDiagram
 
 ---
 
-## ⚙️ Conceitos Aplicados
+## Conceitos Aplicados
 
 | Conceito | Onde aparece |
 |---|---|
@@ -72,7 +72,7 @@ erDiagram
 
 ---
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 - Cadastro de categorias, organizadores e participantes
 - Cadastro de eventos com datas, valores e descrições
@@ -88,7 +88,7 @@ erDiagram
 
 ---
 
-## 🔍 Consultas SQL
+## Consultas SQL
 
 O projeto inclui consultas que demonstram:
 
@@ -117,11 +117,11 @@ GROUP BY e.id_evento, e.nome, e.valor
 ORDER BY arrecadacao DESC;
 ```
 
-> 💡 Ajuste os nomes das colunas do exemplo acima para os mesmos usados no seu script.
+> Ajuste os nomes das colunas do exemplo acima para os mesmos usados no seu script.
 
 ---
 
-## 🚀 Como Executar
+## Como Executar
 
 **Pré-requisitos:** [MySQL Server](https://dev.mysql.com/downloads/mysql/) e [MySQL Workbench](https://dev.mysql.com/downloads/workbench/).
 
@@ -133,12 +133,12 @@ cd event-plus
 
 1. Abra o **MySQL Workbench** e conecte-se ao seu servidor local.
 2. Abra o arquivo `.sql` do projeto (**File → Open SQL Script**).
-3. Execute o script completo (⚡ **Execute**) para criar o banco, as tabelas e inserir os dados de exemplo.
+3. Execute o script completo (**Execute**) para criar o banco, as tabelas e inserir os dados de exemplo.
 4. Rode as consultas da seção de consultas para ver os resultados.
 
 ---
 
-## 📁 Estrutura do Repositório
+## Estrutura do Repositório
 
 ```
 event-plus/
@@ -151,13 +151,13 @@ event-plus/
 
 ---
 
-## 🎯 Objetivo Acadêmico
+## Objetivo Acadêmico
 
 Desenvolver habilidades em **modelagem de dados, criação de tabelas, inserção de registros, relacionamentos e elaboração de consultas SQL**, aplicando os conceitos de bancos de dados relacionais em um cenário realista.
 
 ---
 
-## 👨‍💻 Autor
+## Autor
 
 **Felipe da Silva Mousinho**
 Estudante de Desenvolvimento de Sistemas — SENAI Blumenau
