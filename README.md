@@ -71,7 +71,6 @@ O projeto inclui consultas SQL para demonstrar:
 ## Objetivo Acadêmico
 
 Aplicar na prática os conceitos de banco de dados relacionais, desenvolvendo habilidades em modelagem, criação de tabelas, inserção de dados, relacionamentos e elaboração de consultas SQL.
-
 ---
 
 **Event-Plus**  
